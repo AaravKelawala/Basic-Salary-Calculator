@@ -1,0 +1,31 @@
+#I made this to calculate a basic salary estimate to help people gauge how much an average job pays annually, based off of experience in years.
+#This is simply for a rough estimate and actual annual pay and will vary job to job.
+#Once running the program, input a number representing work experience in years then click enter, the result is how much you will be paid for one year.
+#I used the Salary dataset https://www.kaggle.com/datasets/abhishek14398/salary-dataset-simple-linear-regression and python to code this.
+
+
+from scipy import stats
+import matplotlib.pyplot as plt
+import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
+import numpy as np # linear algebra
+import os
+for dirname, _, filenames in os.walk('/kaggle/input'):
+    for filename in filenames:
+        print(os.path.join(dirname, filename))
+
+
+dataframe = pd.read_csv("/kaggle/input/salary-dataset-simple-linear-regression/Salary_dataset.csv")
+
+x = np.array(dataframe["YearsExperience"]) #declaring x value as Years of Experience
+y = np.array(dataframe["Salary"]) ##declaring y value as Salary
+print(x) #displays x
+print(y) #displays y
+
+plt.scatter(x,y) #creates scatter plot using x and y values
+plt.show() #displays scatter plot
+slope, intercept, r, p, std_err = stats.linregress(x,y) #declaring all of the varibles for linear regression
+input1 = float(input()) #setting a interactive user input that must be a float as input1
+
+def slp(x): #creating a function
+      return slope * x + intercept #returning the y coordinate, this is called y = mx + b
+print(slp(input1)) #displays number
